@@ -1,0 +1,25 @@
+{
+    "name": "arodu/cakelte-tools",
+    "description": "CakeLteTools plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "arodu/cakelte": "dev-2.next", 
+        "cakephp/cakephp": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5 || ^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "CakeLteTools\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CakeLteTools\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+        }
+    }
+}
