@@ -30,7 +30,6 @@ ITEM_FORMAT;
 $headerLineFormat = '<div class="line"></div>';
 
 ?>
-
 <div class="<?= trim(implode(' ', [$selector, $vertical])) ?>">
     <div class="bs-stepper-header" role="tablist">
         <?php $output = [] ?>

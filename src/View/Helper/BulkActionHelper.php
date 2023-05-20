@@ -62,9 +62,11 @@ class BulkActionHelper extends Helper
 
         $("{{checkRow}}").on("click", function() {
             let item = $(this).find("{{cssClassItem}}");
-            let all = $("{{cssClassAll}}")
-            all.prop("indeterminate", true)
             item.prop("checked", !item.is(":checked"))
+            item.trigger('change')
+
+            //let all = $("{{cssClassAll}}")
+            //all.prop("indeterminate", true)
         })
     })
     SCRIPT_TEMPLATE;
@@ -95,8 +97,9 @@ class BulkActionHelper extends Helper
             'type' => 'checkbox',
             'label' => false,
             'hiddenField' => false,
-            'class' => $this->getConfig('cssClassItem'),
         ];
+
+        $options['class'] = implode(' ', [$this->getConfig('cssClassItem'), $options['class'] ?? '']);
 
         return $this->Form->checkbox($fieldName, $options);
     }
@@ -113,9 +116,10 @@ class BulkActionHelper extends Helper
             'type' => 'checkbox',
             'label' => false,
             'hiddenField' => false,
-            'class' => $this->getConfig('cssClassAll'),
             'name' => false,
         ];
+
+        $options['class'] = implode(' ', [$this->getConfig('cssClassAll'), $options['class'] ?? '']);
 
         return $this->Form->checkbox($fieldName, $options);
     }

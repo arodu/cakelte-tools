@@ -57,7 +57,7 @@ class StepperHelper extends Helper
         ]);
     }
 
-    public function addStep(array $options = [])
+    public function addStepBlock(array $options = [])
     {
         $count = count($this->_steps) + 1;
 
@@ -78,6 +78,18 @@ class StepperHelper extends Helper
         }
 
         $this->_steps[] = $options;
+    }
+
+    public function addStepStart(array $options = [])
+    {
+        $this->addStepBlock($options);
+        ob_start();
+    }
+
+    public function addStepEnd()
+    {
+        $content = ob_get_clean();
+        $this->_steps[array_key_last($this->_steps)]['content'] = $content;
     }
 
     /**
