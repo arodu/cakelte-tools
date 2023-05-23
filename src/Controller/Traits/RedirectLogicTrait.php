@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Traits;
+namespace CakeLteTools\Controller\Traits;
 
 use Cake\Http\Response;
 
