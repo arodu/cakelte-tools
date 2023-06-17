@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CakeLteTools\Utility;
 
+use Cake\Utility\Inflector;
+
 class FaIcon
 {
     const TYPE_SOLID = 'fas';
@@ -143,18 +145,29 @@ class FaIcon
         'user' => ['fas', 'user-circle'],
     ];
 
+    public static function defaultIcons(): array
+    {
+        return static::DEFAULT_ICONS;
+    }
+
     /**
      * @param string $key
      * @param array|string $extraCssClass
      * @return static
      */
-    public static function get(string $key = 'default', array|string $extraCssClass = [], array $options = []): self
+    public static function get(array|string $key = 'default', array|string $extraCssClass = [], array $options = []): self
     {
-        if (!array_key_exists($key, static::DEFAULT_ICONS)) {
+        if (is_string($key) && !array_key_exists($key, static::DEFAULT_ICONS)) {
             throw new \InvalidArgumentException("Icon {$key} not found");
         }
 
-        [$type, $name, $extraCssClassDefault] = static::DEFAULT_ICONS[$key] + [null, null, null];
+        if (is_array($key)) {
+            [$type, $name, $extraCssClassDefault] = $key + [null, null, null];
+        } elseif (is_string($key)) {
+            [$type, $name, $extraCssClassDefault] = static::DEFAULT_ICONS[$key] + [null, null, null];
+        } else {
+            throw new \InvalidArgumentException("Icon {$key} not found");
+        }
 
         $icon = (new static($name, $type))
             ->withExtraCssClass($extraCssClassDefault)
@@ -169,5 +182,18 @@ class FaIcon
         }
 
         return $icon;
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return static
+     */
+    public static function __callStatic(string $name, array $arguments = []): self
+    {
+        $name = substr($name, 3);
+        $name = strtolower(Inflector::dasherize($name));
+
+        return static::get($name, ...$arguments);
     }
 }

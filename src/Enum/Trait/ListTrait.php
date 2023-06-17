@@ -8,6 +8,9 @@ use Cake\Utility\Inflector;
 
 trait ListTrait
 {
+    /**
+     * @return string
+     */
     public function label(): string
     {
         return Inflector::humanize($this->value);
