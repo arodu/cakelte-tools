@@ -143,6 +143,7 @@ class FaIcon
         'report' => ['fas', 'file-alt'],
         'tasks' => ['fas', 'tasks'],
         'user' => ['fas', 'user-circle'],
+        'close' => ['fas', 'window-close'],
     ];
 
     public static function defaultIcons(): array
