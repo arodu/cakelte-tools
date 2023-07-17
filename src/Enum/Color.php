@@ -33,74 +33,56 @@ enum Color: string
     case TEAL = 'teal';
     case OLIVE = 'olive';
 
-    /**
-     * @param string $prefix
-     * @param boolean $includePrefixClass, default true
-     * @return string
-     */
-    public function cssClass(string $prefix = 'card', bool $includePrefixClass = true): string
+    const TAGS = [
+        'bg' => ['includeBase' => false],
+        'text' => ['includeBase' => false],
+        'badge' => ['includeBase' => true],
+        'card' => ['includeBase' => true],
+        'btn' => ['includeBase' => true],
+        'btnOutline' => ['includeBase' => true],
+    ];
+
+    public function __call($name, $arguments)
     {
-        return trim(implode(' ', [
-            $includePrefixClass ? $prefix : null,
-            $prefix . '-' . $this->value,
-        ]));
+        if (!array_key_exists($name, static::TAGS)) {
+            throw new \BadMethodCallException(sprintf('Method %s does not exist', $name));
+        }
+
+        $tag = static::TAGS[$name];
+
+        return $this->cssClass($name, $tag['includeBase'], $arguments);
     }
 
     /**
-     * return "bg-primary"
-     *
+     * @param string $name
+     * @param boolean $includeBase
+     * @param string $extraClass
      * @return string
      */
-    public function bg(): string
+    public function cssClass(string $name, bool $includeBase = true, $arguments = []): string
     {
-        return $this->cssClass('bg', false);
-    }
+        ['base' => $base, 'prefix' => $prefix] = $this->mapTag($name);
 
-    /**
-     * return "text-primary"
-     *
-     * @return string
-     */
-    public function text(): string
-    {
-        return $this->cssClass('text', false);
-    }
-
-    /**
-     * return "badge badge-primary"
-     *
-     * @return string
-     */
-    public function badge(): string
-    {
-        return $this->cssClass('badge', true);
-    }
-
-    /**
-     * return "card card-primary"
-     *
-     * @return string
-     */
-    public function card(): string
-    {
-        return $this->cssClass('card', true);
-    }
-
-    /**
-     * return "btn btn-primary"
-     *
-     * @return string
-     */
-    public function btn(bool $outline = false): string
-    {
-        $prefix = 'btn';
         $output = implode(' ', [
-            $prefix,
-            $outline
-                ? $prefix . '-outline-' . $this->value
-                : $prefix . '-' . $this->value,
+            $includeBase ? $base : null,
+            $prefix . '-' . $this->value,
         ]);
 
         return trim($output);
+    }
+
+    protected function mapTag(string $name): array
+    {
+        if ($name === 'btnOutline') {
+            $base = 'btn';
+            $prefix = 'btn-outline';
+        } else {
+            $prefix = $base = $name;
+        }
+
+        return [
+            'base' => $base,
+            'prefix' => $prefix,
+        ];
     }
 }

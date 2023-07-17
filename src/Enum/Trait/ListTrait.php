@@ -4,18 +4,8 @@ declare(strict_types=1);
 
 namespace CakeLteTools\Enum\Trait;
 
-use Cake\Utility\Inflector;
-
 trait ListTrait
 {
-    /**
-     * @return string
-     */
-    public function label(): string
-    {
-        return Inflector::humanize($this->value);
-    }
-
     /**
      * @param array|null $cases
      * @return array

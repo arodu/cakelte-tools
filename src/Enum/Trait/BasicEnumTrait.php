@@ -4,13 +4,23 @@ declare(strict_types=1);
 
 namespace CakeLteTools\Enum\Trait;
 
+use Cake\Utility\Inflector;
+
 trait BasicEnumTrait
 {
     /**
-     * @param mixed $item
+     * @return string
+     */
+    public function label(): string
+    {
+        return Inflector::humanize($this->value);
+    }
+
+    /**
+     * @param self|string|array $item
      * @return bool
      */
-    public function is(mixed $item): bool
+    public function is(self|string|array $item): bool
     {
         if (is_string($item)) {
             return $this->value === $item;
@@ -20,6 +30,14 @@ trait BasicEnumTrait
             return in_array($this, $item, true);
         }
 
-        return $this === $item;
+        if (is_array($item) && !empty($this?->value)) {
+            return in_array($this->value, $item, true);
+        }
+
+        if ($item instanceof self) {
+            return $this === $item;
+        }
+
+        return false;
     }
 }
