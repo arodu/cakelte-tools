@@ -40,4 +40,13 @@ trait BasicEnumTrait
 
         return false;
     }
+
+    /**
+     * @param mixed $value
+     * @return self
+     */
+    public static function get(mixed $value): self
+    {
+        return self::tryFrom($value);
+    }
 }
