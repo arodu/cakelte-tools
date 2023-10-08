@@ -145,6 +145,7 @@ class FaIcon
         'user' => ['fas', 'user-circle'],
         'close' => ['fas', 'window-close'],
         'check' => ['fas', 'check-circle'],
+        'chart-bar' => ['fas', 'chart-bar'],
     ];
 
     public static function defaultIcons(): array
