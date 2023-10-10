@@ -105,7 +105,7 @@ class FaIcon
         return $this->withExtraCssClass('fa-fw');
     }
 
-    const DEFAULT_ICONS = [
+    static protected array $default_icons = [
         'default' => ['fas', 'flag'],
         'download' => ['fas', 'download'],
         'in-progress' => ['fas', 'cogs'],
@@ -148,9 +148,28 @@ class FaIcon
         'chart-bar' => ['fas', 'chart-bar'],
     ];
 
-    public static function defaultIcons(): array
+    public static function getIcon(string $key = null): array
     {
-        return static::DEFAULT_ICONS;
+        if (empty($key)) {
+            return static::$default_icons;
+        }
+
+        return static::$default_icons[$key];
+    }
+
+    public static function setIcon(string|array $key, array $options = []): void
+    {
+        if (is_string($key)) {
+            static::$default_icons[$key] = $options;
+            return;
+        }
+
+        if (is_array($key)) {
+            static::$default_icons = array_merge(static::$default_icons, $key);
+            return;
+        }
+
+        throw new \InvalidArgumentException("Icon {$key} not found");
     }
 
     /**
@@ -160,14 +179,14 @@ class FaIcon
      */
     public static function get(array|string $key = 'default', array|string $extraCssClass = [], array $options = []): self
     {
-        if (is_string($key) && !array_key_exists($key, static::DEFAULT_ICONS)) {
+        if (is_string($key) && !array_key_exists($key, static::getIcon())) {
             throw new \InvalidArgumentException("Icon {$key} not found");
         }
 
         if (is_array($key)) {
             [$type, $name, $extraCssClassDefault] = $key + [null, null, null];
         } elseif (is_string($key)) {
-            [$type, $name, $extraCssClassDefault] = static::DEFAULT_ICONS[$key] + [null, null, null];
+            [$type, $name, $extraCssClassDefault] = static::getIcon($key) + [null, null, null];
         } else {
             throw new \InvalidArgumentException("Icon {$key} not found");
         }
