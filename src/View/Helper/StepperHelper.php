@@ -20,7 +20,7 @@ class StepperHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'previousButton' => null,
         'nextButton' => null,
         'finishButton' => null,
@@ -46,7 +46,7 @@ class StepperHelper extends Helper
 
     protected $_steps = [];
 
-    public $helpers = ['Html', 'Form'];
+    public array $helpers = ['Html', 'Form'];
 
     public function initialize(array $config): void
     {

@@ -16,13 +16,13 @@ class DependentSelectorHelper extends Helper
     /**
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'selectorName' => 'dependent-selector',
         'empty' => null,
         'allowDuplicateScript' => false,
     ];
 
-    public $helpers = ['Form', 'Html'];
+    public array $helpers = ['Form', 'Html'];
 
     private $isDuplicated = false;
 

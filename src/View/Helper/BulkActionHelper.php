@@ -13,7 +13,7 @@ use Cake\View\View;
  */
 class BulkActionHelper extends Helper
 {
-    public $helpers = ['Form', 'Html'];
+    public array $helpers = ['Form', 'Html'];
 
     public const TYPE_ALL = 'all';
     public const TYPE_ITEM = 'item';
@@ -23,7 +23,7 @@ class BulkActionHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'fieldNameAll' => 'all',
         'fieldNameItem' => 'item',
         'fieldNameSelectAction' => 'action',
