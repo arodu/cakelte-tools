@@ -26,6 +26,7 @@ class CakeLteToolsPlugin extends BasePlugin
      */
     public function bootstrap(PluginApplicationInterface $app): void
     {
+        parent::bootstrap($app);
     }
 
     /**
