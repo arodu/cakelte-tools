@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 namespace CakeLteTools\Enum;
 
+/**
+ * Color enum
+ * 
+ * @method string bg(string $extraClass = null)
+ * @method string text(string $extraClass = null)
+ * @method string badge(string $extraClass = null)
+ * @method string card(string $extraClass = null)
+ * @method string btn(string $extraClass = null)
+ * @method string btnOutline(string $extraClass = null)
+ */
 enum Color: string
 {
     case DEFAULT = 'default';
