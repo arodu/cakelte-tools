@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CakeLteTools\Utility;
 
-class Css
+class Html
 {
     /**
      * Flattens a multidimensional array into a single-dimensional array.
@@ -30,8 +30,8 @@ class Css
      * @param array $classes The CSS classes to be returned.
      * @return string The string of CSS classes.
      */
-    public static function classToString(array $classes): string
+    public static function classToString(array $arrayClass): string
     {
-        return implode(' ', self::flattenArray($classes));
+        return implode(' ', self::flattenArray($arrayClass));
     }
 }
