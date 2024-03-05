@@ -8,7 +8,13 @@ use Cake\Utility\Hash;
 
 trait ExportDataTrait
 {
-    protected function exportCsv(array $data, array $fields, array $options = [])
+    /**
+     * @param array $data
+     * @param array $fields
+     * @param array $options
+     * @return \Cake\Http\Response|null
+     */
+    protected function exportCsv(array $data, array $fields, array $options = []): ?Response
     {
         $results = array_map(function ($row) use ($fields) {
             $result = [];
@@ -30,7 +36,11 @@ trait ExportDataTrait
             ->withStringBody($this->arrayToCsv($results));
     }
 
-    protected function arrayToCsv(array $data)
+    /**
+     * @param array $data
+     * @return string|false
+     */
+    protected function arrayToCsv(array $data): string|false
     {
         $output = fopen('php://memory', 'w');
         foreach ($data as $row) {
@@ -41,7 +51,12 @@ trait ExportDataTrait
         return stream_get_contents($output);
     }
 
-    protected function filenameWithDate(string $name, string $ext = 'csv')
+    /**
+     * @param string $name
+     * @param string $ext
+     * @return string
+     */
+    protected function filenameWithDate(string $name, string $ext = 'csv'): string
     {
         return sprintf('%s_%s.%s', $name, date('YmdHis'), $ext);
     }
