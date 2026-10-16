@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\View\Helper;
@@ -10,7 +9,7 @@ use Cake\View\Helper;
 
 /**
  * @property \Cake\View\Helper\HtmlHelper $Helper
- * 
+ *
  * Stepper helper
  */
 class StepperHelper extends Helper
@@ -48,6 +47,10 @@ class StepperHelper extends Helper
 
     public $helpers = ['Html', 'Form'];
 
+    /**
+     * @param array<string, mixed> $config
+     * @return void
+     */
     public function initialize(array $config): void
     {
         $this->setConfig([
@@ -57,6 +60,10 @@ class StepperHelper extends Helper
         ]);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     * @return void
+     */
     public function addStepBlock(array $options = [])
     {
         $count = count($this->_steps) + 1;
@@ -80,12 +87,19 @@ class StepperHelper extends Helper
         $this->_steps[] = $options;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     * @return void
+     */
     public function addStepStart(array $options = [])
     {
         $this->addStepBlock($options);
         ob_start();
     }
 
+    /**
+     * @return void
+     */
     public function addStepEnd()
     {
         $content = ob_get_clean();
@@ -115,6 +129,9 @@ class StepperHelper extends Helper
         </div>
     STEP_CONTENT_FORMAT;
 
+    /**
+     * @return array
+     */
     public function getBodyItems(): array
     {
         $output = [];
@@ -146,6 +163,11 @@ class StepperHelper extends Helper
         return $output;
     }
 
+    /**
+     * @param string $label
+     * @param array<string, mixed> $options
+     * @return string
+     */
     public function button(string $label, array $options = []): string
     {
         $options += [
@@ -157,6 +179,10 @@ class StepperHelper extends Helper
         return $this->Form->button($label, $options);
     }
 
+    /**
+     * @param int|string $currentKey
+     * @return string
+     */
     protected function renderFooter($currentKey): string
     {
         $left = $this->button($this->getConfig('previousButton'), ['onclick' => 'stepper.previous()']);
@@ -175,7 +201,7 @@ class StepperHelper extends Helper
             } else {
                 $right = $this->_steps[$currentKey]['footerRight'] ?? $right;
             }
-        } else if (array_key_first($this->_steps) === $currentKey) {
+        } elseif (array_key_first($this->_steps) === $currentKey) {
             $left = null;
         } elseif (array_key_last($this->_steps) === $currentKey) {
             $right = $this->button($this->getConfig('finishButton'), ['type' => 'submit', 'class' => 'btn btn-primary']);
@@ -187,10 +213,15 @@ class StepperHelper extends Helper
         return $this->Html->tag('div', $left . $right, ['class' => 'd-flex']);
     }
 
+    /**
+     * @param callable $function
+     * @return string|false
+     */
     protected function _getObData(callable $function): string|false
     {
         ob_start();
         echo $function($this->getView());
+
         return ob_get_clean();
     }
 }

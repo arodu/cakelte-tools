@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\Controller\Traits;
@@ -8,11 +7,18 @@ use Cake\Http\Exception\NotFoundException;
 
 trait BulkActionsTrait
 {
+    /**
+     * @param array $list
+     * @return array
+     */
     protected function getIdList($list): array
     {
         return array_keys(array_filter($list));
     }
 
+    /**
+     * @return mixed
+     */
     public function bulkActions()
     {
         $data = $this->getRequest()->getData();

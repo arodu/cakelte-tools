@@ -1,12 +1,10 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\View\Helper;
 
 use Cake\Utility\Text;
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * BulkAction helper
@@ -71,6 +69,9 @@ class BulkActionHelper extends Helper
     })
     SCRIPT_TEMPLATE;
 
+    /**
+     * @return string
+     */
     public function scripts()
     {
         $script = Text::insert($this->scriptTemplate, [
@@ -124,6 +125,11 @@ class BulkActionHelper extends Helper
         return $this->Form->checkbox($fieldName, $options);
     }
 
+    /**
+     * @param array $actions
+     * @param array<string, mixed> $options
+     * @return string|null
+     */
     public function selectActions($actions, array $options = [])
     {
         $options = array_merge([

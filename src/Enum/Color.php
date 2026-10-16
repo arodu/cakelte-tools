@@ -1,12 +1,11 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\Enum;
 
 /**
  * Color enum
- * 
+ *
  * @method string bg(string $extraClass = null)
  * @method string text(string $extraClass = null)
  * @method string badge(string $extraClass = null)
@@ -43,7 +42,7 @@ enum Color: string
     case TEAL = 'teal';
     case OLIVE = 'olive';
 
-    const TAGS = [
+    public const TAGS = [
         'bg' => ['includeBase' => false],
         'text' => ['includeBase' => false],
         'badge' => ['includeBase' => true],
@@ -52,6 +51,11 @@ enum Color: string
         'btnOutline' => ['includeBase' => true],
     ];
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return string
+     */
     public function __call($name, $arguments)
     {
         if (!array_key_exists($name, static::TAGS)) {
@@ -65,8 +69,8 @@ enum Color: string
 
     /**
      * @param string $name
-     * @param boolean $includeBase
-     * @param string $extraClass
+     * @param bool $includeBase
+     * @param string $arguments
      * @return string
      */
     public function cssClass(string $name, bool $includeBase = true, $arguments = []): string
@@ -81,6 +85,10 @@ enum Color: string
         return trim($output);
     }
 
+    /**
+     * @param string $name
+     * @return array
+     */
     protected function mapTag(string $name): array
     {
         if ($name === 'btnOutline') {

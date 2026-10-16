@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\Utility;
@@ -27,7 +26,7 @@ class Html
     /**
      * Returns a string of CSS classes.
      *
-     * @param array $classes The CSS classes to be returned.
+     * @param array $arrayClass The CSS classes to be returned.
      * @return string The string of CSS classes.
      */
     public static function classToString(array $arrayClass): string
