@@ -1,12 +1,10 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\View\Helper;
 
 use Cake\Utility\Text;
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * DependentSelector helper
@@ -87,6 +85,7 @@ class DependentSelectorHelper extends Helper
         });
     });
     SCRIPT_TEMPLATE;
+
     /**
      * @param string|null $selectorName
      * @param array<string, mixed> $options
@@ -117,6 +116,11 @@ class DependentSelectorHelper extends Helper
         return $this->Html->scriptBlock($script, ['block' => $block]);
     }
 
+    /**
+     * @param string $fieldName
+     * @param array<string, mixed> $options
+     * @return string
+     */
     public function control(string $fieldName, array $options = []): string
     {
         $options['class'] = $this->handleCssClass($options['class'] ?? null);
@@ -132,6 +136,10 @@ class DependentSelectorHelper extends Helper
         return $this->Form->control($fieldName, $options);
     }
 
+    /**
+     * @param array|string|null $class
+     * @return string
+     */
     protected function handleCssClass($class): string
     {
         if (is_array($class)) {

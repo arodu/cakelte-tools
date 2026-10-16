@@ -1,13 +1,17 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\Enum;
 
-use CakeLteTools\Enum\Color;
-
 interface BadgeInterface
 {
+    /**
+     * @return string
+     */
     public function label(): string;
+
+    /**
+     * @return \CakeLteTools\Enum\Color
+     */
     public function color(): Color;
 }
