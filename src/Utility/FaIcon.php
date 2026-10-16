@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CakeLteTools\Utility;
@@ -8,17 +7,17 @@ use Cake\Utility\Inflector;
 
 class FaIcon
 {
-    const TYPE_SOLID = 'fas';
-    const TYPE_REGULAR = 'far';
-    const TYPE_LIGHT = 'fal';
-    const TYPE_BRANDS = 'fab';
+    public const TYPE_SOLID = 'fas';
+    public const TYPE_REGULAR = 'far';
+    public const TYPE_LIGHT = 'fal';
+    public const TYPE_BRANDS = 'fab';
 
-    const SIZE_2XS = '2xs';
-    const SIZE_XS = 'xs';
-    const SIZE_SM = 'sm';
-    const SIZE_LG = 'lg';
-    const SIZE_XL = 'xl';
-    const SIZE_2XL = '2xl';
+    public const SIZE_2XS = '2xs';
+    public const SIZE_XS = 'xs';
+    public const SIZE_SM = 'sm';
+    public const SIZE_LG = 'lg';
+    public const SIZE_XL = 'xl';
+    public const SIZE_2XL = '2xl';
 
     private string $name;
     private string $type = self::TYPE_SOLID;
@@ -105,7 +104,7 @@ class FaIcon
         return $this->withExtraCssClass('fa-fw');
     }
 
-    static protected array $default_icons = [
+    protected static array $default_icons = [
         'default' => ['fas', 'flag'],
         'download' => ['fas', 'download'],
         'in-progress' => ['fas', 'cogs'],
@@ -148,7 +147,11 @@ class FaIcon
         'chart-bar' => ['fas', 'chart-bar'],
     ];
 
-    public static function getIcon(string $key = null): array
+    /**
+     * @param string|null $key
+     * @return array
+     */
+    public static function getIcon(?string $key = null): array
     {
         if (empty($key)) {
             return static::$default_icons;
@@ -157,15 +160,22 @@ class FaIcon
         return static::$default_icons[$key];
     }
 
+    /**
+     * @param string|array $key
+     * @param array $options
+     * @return void
+     */
     public static function setIcon(string|array $key, array $options = []): void
     {
         if (is_string($key)) {
             static::$default_icons[$key] = $options;
+
             return;
         }
 
         if (is_array($key)) {
             static::$default_icons = array_merge(static::$default_icons, $key);
+
             return;
         }
 
@@ -173,8 +183,9 @@ class FaIcon
     }
 
     /**
-     * @param string $key
+     * @param string|array $key
      * @param array|string $extraCssClass
+     * @param array $options
      * @return static
      */
     public static function get(array|string $key = 'default', array|string $extraCssClass = [], array $options = []): self
